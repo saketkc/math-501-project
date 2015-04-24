@@ -1,0 +1,193 @@
+%===============================================================================
+% $Id: ifacconf.tex 19 2011-10-27 09:32:13Z jpuente $  
+% Template for IFAC meeting papers
+% Copyright (c) 2007-2008 International Federation of Automatic Control
+%===============================================================================
+\documentclass{ifacconf}
+
+\usepackage{graphicx}      % include this line if your document contains figures
+\usepackage{natbib}        % required for bibliography
+\usepackage{amsmath, amsxtra, amsfonts,amscd,amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx,wrapfig}
+\usepackage{epstopdf}
+\usepackage{url}
+\usepackage[algo2e,linesnumbered, vlined,ruled]{algorithm2e}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{mathrsfs}
+%===============================================================================
+\begin{document}
+\begin{frontmatter}
+
+
+
+\title{
+	Optimal Control Design of a Reparable Multistate system}% \thanksref{footnoteinfo}}    % Title, preferably not more than 10 words.
+
+%\thanks[footnoteinfo]{}
+
+\author[First]{XXX} 
+\author[Second]{XXX} 
+
+
+\address[First]{University of Southern California, 
+   LA, CA 90089 USA (e-mail: XXX@ usc.edu).}
+
+\address[Second]{University of Southern California, 
+   LA, CA 90089 USA (e-mail: XXX@ usc.edu).}
+
+\begin{abstract}                % Abstract of not more than 250 words.
+
+\end{abstract}
+
+\begin{keyword}
+
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Problem description}
+Carefully provide a mathematical description of the problem discussed in this report. 
+
+\section{Methodology}
+\label{sec:method}
+\begin{equation}
+\label{eq1}
+\frac{dp_0}{dt} = -\lambda_0 p_0(t) + \int_0^1 \mu_1(x)p_1(x,t)dx + \int_0^1u^{*}(x,t)dx
+\end{equation}
+
+\begin{equation}
+\label{eq2}
+\frac{\partial p_1(x,t)}{\partial t} + \frac{\partial p_1(x,t)}{\partial x} = -\mu_1(x)p_1(x,t) - u^{*}(x,t)
+\end{equation}
+
+
+\textbf{Given Initial Conditions:}
+
+\begin{eqnarray}
+p_1(1,t) &=& 0\\
+p_0(0) &=& 1
+\end{eqnarray}
+
+\textbf{Given Boundary Conditions:}
+
+\begin{eqnarray}
+p_1(0,t) &=& \lambda_0 p_0(t)
+\end{eqnarray}
+
+\begin{eqnarray}
+u^{*}(x,t) &=& (0.3+0.1 sin(x))b(t) 
+\end{eqnarray}
+
+And,
+
+\begin{eqnarray}
+b(t)+\int_0^1\mu_1(x)f(x,t)dx -0.3p_0^{*}(t) = c(t)\\
+f(x,t) = 0.1\cos(\pi t)\sin^2(1-x)\\
+p_0^{*}(t) = 0.85+0.05\cos(2\pi t)
+\end{eqnarray}
+
+
+
+We make couple of substitutions, following the notation that
+$z_i^j$ refers to the value of $z$ evaluated at time point $i$ and at position $j$
+
+So 
+\begin{eqnarray}
+p_0(t_n) = v_n \nonumber \\
+p_1(x_i,t_j) = w_j^i \\
+\mu_1(x_i) = \mu^i \\
+\lambda_ = \lambda_0
+\end{eqnarray} 
+
+
+Using the new notations boundary conditions and initial values:
+
+
+Initial conditions:
+\begin{eqnarray}
+w_j^{20} &=& 0\\
+v_0 &=& 1
+\end{eqnarray}
+
+Boundary Conditions:
+
+\begin{eqnarray}
+w_j^0 &=&  \lambda v_j
+\end{eqnarray}
+
+Also condensing,
+
+
+\begin{eqnarray}
+u^{*}(x_i,t_j) &=& g^ib_j \\
+\int_0^1 u^{*}(x,t_j)dx = Gb_j\\
+where\ g^i = (0.3+0.1sin(x_i)) \nonumber
+\end{eqnarray}
+
+And,
+
+\begin{eqnarray}
+b(t)+\int_0^1\mu_1(x)f(x,t)dx -0.3p_0^{*}(t) = c(t) \nonumber \\
+b_n = c_n - F_n \\
+where\ F_n = \int_0^1\mu_1(x)f(x,t_n)dx -0.3p_0^{*}(t_n)\\
+\end{eqnarray}
+
+
+
+Discretizing \ref{eq1}
+
+\begin{eqnarray}
+\frac{v_{j+1}-v_j}{\tau} = -\lambda v_j + I_j + I_j^{*} \\
+I_j = h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k + \frac{\mu^{20} w_n^{20}}{2} ] \\
+&=&  h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k ] \nonumber \\
+I_j^{*} = Gb_j
+\end{eqnarray}
+
+
+Discretizing \ref{eq2}
+\begin{eqnarray}
+\frac{w_{j+1}^i-w_{j}^i}{\tau} + \frac{w_j^{i+1}-w_j^{i-1}}{2h} = -\mu_jw_n^i - g^ib_j \nonumber\\
+w_{j+1}^i=w_{j}^i{\tau}-\frac{\tau}{2h}(w_j^{i+1}-w_j^{i-1})-\tau\mu_j w_j^i - \tau g^i b_j
+\end{eqnarray}
+
+appliying LAX scheme $w_n^i = \frac{w_n^{i-1} + w_n^{i+1}}{2}$ ????
+
+
+From 21:
+\begin{eqnarray}
+v_{n+1} = (1-\lambda \tau)v_n + \tau I_n + \tau I_n^{*} \\
+v_{n+1} = av_n + \tau I_n + \tau I_n^{*}\\
+v_{n} = av_{n-1} + \tau I_{n-1} + \tau I_{n-1}^{*}\\
+v_{n+1} = a^2v_{n-1} + \tau I_n + a\tau I_{n-1} + \tau I_{n}^{*} + a\tau I_{n-1}^{*} 
+\end{eqnarray}
+
+
+For any $v_{j+1}$ expansion the sum of subscripts of all possible terms should sum to $j$ except the leading term which sums to $j+1$ (trivial) .
+
+Hence:
+
+\begin{equation}
+v_{n+1} = a^{n+1}v_0 + \tau I_n + a \tau I_{n-1} + a^2 \tau I_{n-2} + \ldots + \tau I_n^{*} + a\tau I_{n-1}^{*} 
+\end{equation}
+
+
+NOTE: $I_n^{*}$ has $b_n$ term hidden inside. But basically this can be written as a matrix form
+
+\begin{equation}
+\begin{pmatrix} a^{n}\tau & a^{n-1}\tau & \cdots & a^2\tau & a\tau& \tau \end{pmatrix} . \begin{pmatrix} I_0^{*} \\ I_1^{*} \\ \cdots \\ I_{n-2}^{*} \\ I_{n-1}^{*} \\ I_{n} ^{*}\end{pmatrix}
+\end{equation}
+
+\section{Results}
+Illustrate the results using the methodology proposed in Section. \ref{sec:method}
+
+\section{Observation and Conclusions}
+State your observation from the results and make conclusions. 
+
+\section*{Reference}
+All materials (books, papers, and websites) mentioned in your reports.   
+\section*{Appendix}
+Attach the Matlab code here.
+
+\end{document}
