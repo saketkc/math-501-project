@@ -95,7 +95,7 @@ $z_i^j$ refers to the value of $z$ evaluated at time point $i$ and at position $
 
 So 
 \begin{eqnarray}
-p_0(t_n) = v_n \nonumber \\
+p_0(t_j) = v_j \nonumber \\
 p_1(x_i,t_j) = w_j^i \\
 \mu_1(x_i) = \mu^i \\
 \lambda_ = \lambda_0
@@ -130,8 +130,8 @@ And,
 
 \begin{eqnarray}
 b(t)+\int_0^1\mu_1(x)f(x,t)dx -0.3p_0^{*}(t) = c(t) \nonumber \\
-b_n = c_n - F_n \\
-where\ F_n = \int_0^1\mu_1(x)f(x,t_n)dx -0.3p_0^{*}(t_n)\\
+b_j = c_j - F_j \\
+where\ F_j = \int_0^1\mu_1(x)f(x,t_j)dx -0.3p_0^{*}(t_j)\\
 \end{eqnarray}
 
 
@@ -140,7 +140,7 @@ Discretizing \ref{eq1}
 
 \begin{eqnarray}
 \frac{v_{j+1}-v_j}{\tau} = -\lambda v_j + I_j + I_j^{*} \\
-I_j = h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k + \frac{\mu^{20} w_n^{20}}{2} ] \\
+I_j = h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k + \frac{\mu^{20} w_j^{20}}{2} ] \\
 &=&  h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k ] \nonumber \\
 I_j^{*} = Gb_j
 \end{eqnarray}
@@ -148,19 +148,19 @@ I_j^{*} = Gb_j
 
 Discretizing \ref{eq2}
 \begin{eqnarray}
-\frac{w_{j+1}^i-w_{j}^i}{\tau} + \frac{w_j^{i+1}-w_j^{i-1}}{2h} = -\mu_jw_n^i - g^ib_j \nonumber\\
-w_{j+1}^i=w_{j}^i{\tau}-\frac{\tau}{2h}(w_j^{i+1}-w_j^{i-1})-\tau\mu_j w_j^i - \tau g^i b_j
+\frac{w_{j+1}^i-w_{j}^i}{\tau} + \frac{w_j^{i+1}-w_j^{i-1}}{2h} = -\mu_jw_j^i - g^ib_j \nonumber\\
+w_{j+1}^i=w_{j}^i-\frac{\tau}{2h}(w_j^{i+1}-w_j^{i-1})-\tau\mu_j w_j^i - \tau g^i b_j
 \end{eqnarray}
 
-appliying LAX scheme $w_n^i = \frac{w_n^{i-1} + w_n^{i+1}}{2}$ ????
+Applying LAX scheme $w_j^i = \frac{w_j^{i-1} + w_j^{i+1}}{2}$ ????
 
 
 From 21:
 \begin{eqnarray}
-v_{n+1} = (1-\lambda \tau)v_n + \tau I_n + \tau I_n^{*} \\
-v_{n+1} = av_n + \tau I_n + \tau I_n^{*}\\
-v_{n} = av_{n-1} + \tau I_{n-1} + \tau I_{n-1}^{*}\\
-v_{n+1} = a^2v_{n-1} + \tau I_n + a\tau I_{n-1} + \tau I_{n}^{*} + a\tau I_{n-1}^{*} 
+v_{j+1} = (1-\lambda \tau)v_j + \tau I_j + \tau I_j^{*} \\
+v_{j+1} = av_j + \tau I_j + \tau I_j^{*}\\
+v_{j} = av_{j-1} + \tau I_{j-1} + \tau I_{j-1}^{*}\\
+v_{j+1} = a^2v_{j-1} + \tau I_j + a\tau I_{j-1} + \tau I_{j}^{*} + a\tau I_{j-1}^{*} 
 \end{eqnarray}
 
 
@@ -169,14 +169,14 @@ For any $v_{j+1}$ expansion the sum of subscripts of all possible terms should s
 Hence:
 
 \begin{equation}
-v_{n+1} = a^{n+1}v_0 + \tau I_n + a \tau I_{n-1} + a^2 \tau I_{n-2} + \ldots + \tau I_n^{*} + a\tau I_{n-1}^{*} 
+v_{j+1} = a^{n+1}v_0 + \tau I_j + a \tau I_{j-1} + a^2 \tau I_{j-2} + \ldots + \tau I_j^{*} + a\tau I_{j-1}^{*} 
 \end{equation}
 
 
-NOTE: $I_n^{*}$ has $b_n$ term hidden inside. But basically this can be written as a matrix form
+NOTE: $I_j^{*}$ has $b_j$ term hidden inside. But basically this can be written as a matrix form
 
 \begin{equation}
-\begin{pmatrix} a^{n}\tau & a^{n-1}\tau & \cdots & a^2\tau & a\tau& \tau \end{pmatrix} . \begin{pmatrix} I_0^{*} \\ I_1^{*} \\ \cdots \\ I_{n-2}^{*} \\ I_{n-1}^{*} \\ I_{n} ^{*}\end{pmatrix}
+\begin{pmatrix} a^{n}\tau & a^{n-1}\tau & \cdots & a^2\tau & a\tau& \tau \end{pmatrix} . \begin{pmatrix} I_0^{*} \\ I_1^{*} \\ \cdots \\ I_{j-2}^{*} \\ I_{j-1}^{*} \\ I_{j} ^{*}\end{pmatrix}
 \end{equation}
 
 \section{Results}
