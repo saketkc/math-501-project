@@ -5,6 +5,7 @@
 %===============================================================================
 \documentclass{ifacconf}
 
+%\input{./macros.tex}
 \usepackage{graphicx}      % include this line if your document contains figures
 \usepackage{natbib}        % required for bibliography
 \usepackage{amsmath, amsxtra, amsfonts,amscd,amssymb}
@@ -17,9 +18,9 @@
 \usepackage{multirow}
 \usepackage{mathrsfs}
 %===============================================================================
+
 \begin{document}
 \begin{frontmatter}
-
 
 
 \title{
@@ -136,33 +137,68 @@ where\ F_j = \int_0^1\mu_1(x)f(x,t_j)dx -0.3p_0^{*}(t_j)\\
 
 
 
-Discretizing \ref{eq1}
+Discretizing \eqref{eq1}
 
-\begin{eqnarray}
-\frac{v_{j+1}-v_j}{\tau} = -\lambda v_j + I_j + I_j^{*} \\
-I_j = h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k + \frac{\mu^{20} w_j^{20}}{2} ] \\
-&=&  h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k ] \nonumber \\
-I_j^{*} = Gb_j
-\end{eqnarray}
-
-
-Discretizing \ref{eq2}
-\begin{eqnarray}
-\frac{w_{j+1}^i-w_{j}^i}{\tau} + \frac{w_j^{i+1}-w_j^{i-1}}{2h} = -\mu_jw_j^i - g^ib_j \nonumber\\
-w_{j+1}^i=w_{j}^i-\frac{\tau}{2h}(w_j^{i+1}-w_j^{i-1})-\tau\mu_j w_j^i - \tau g^i b_j
-\end{eqnarray}
-
-Applying LAX scheme $w_j^i = \frac{w_j^{i-1} + w_j^{i+1}}{2}$ ????
+\begin{align} \label{eq:disceq1}
+\frac{v_{j+1}-v_j}{\tau} &= -\lambda v_j + I_j + I_j^{*} \\
+I_j &= h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k + \frac{\mu^{20} w_j^{20}}{2} ] \\
+    &=  h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k ] \nonumber \\
+I_j^{*} &= Gb_j
+\end{align}
 
 
-From 21:
-\begin{eqnarray}
-v_{j+1} = (1-\lambda \tau)v_j + \tau I_j + \tau I_j^{*} \\
+Discretizing \eqref{eq2}
+\begin{align} \label{eq:disceq2}
+\frac{w_{j+1}^i-w_{j}^i}{\tau} + \frac{w_j^{i+1}-w_j^{i-1}}{2h} = -\mu^iw_j^i - g^ib_j \nonumber\\
+w_{j+1}^i=w_{j}^i-\frac{\tau}{2h}(w_j^{i+1}-w_j^{i-1})-\tau\mu^i w_j^i - \tau g^i b_j
+\end{align}
+
+Applying LAX scheme $w_j^i = \frac{w_j^{i-1} + w_j^{i+1}}{2}$ we get,
+\begin{align*}
+	w^i_{j+1} =& \frac{1}{2}\left( 1-\mu^i\tau + \frac{\tau}{h} \right) w^{i-1}_j + \\
+	           & \frac{1}{2}\left( 1-\mu^i\tau - \frac{\tau}{h} \right) w^{i+1}_j - \\
+		   & \tau g^i b_j
+\end{align*}
+
+Under an appropriately defined matrix $A$, we can re-write the above equation to read
+\begin{align}
+	\vec{w}_{j+1} =& A\vec{w}_j - b_j\tau\vec{g} + \vec{e_1}v_{j+1} \\
+	=& (A)^j \vec{w}_1 - \left[ \sum_{k=1}^j b_k (A)^{j-k} \right]\vec{g}\tau \\
+	&+ \left[ \sum_{k=1}^j v_{k+1}(A)^{j-k} \right]\vec{e_1} \nonumber
+\end{align}
+
+
+From \eqref{eq:disceq1}:
+\begin{align}
+v_{j+1} &= (1-\lambda \tau)v_j + \tau I_j + \tau I_j^{*} \\
+&= (1-\lambda \tau + \frac{h\tau}{2})v_j + h\tau\vec{\mu}^T\vec{w}_j + \alpha b_j\tau
 %v_{j+1} = av_j + \tau I_j + \tau I_j^{*}\\
 %v_{j} = av_{j-1} + \tau I_{j-1} + \tau I_{j-1}^{*}\\
 %v_{j+1} = a^2v_{j-1} + \tau I_j + a\tau I_{j-1} + \tau I_{j}^{*} + a\tau I_{j-1}^{*} 
-\end{eqnarray}
-
+\end{align}
+Substitute the expression for the time evolution for $\vec{w}$ in the above to obtain,
+\begin{align*}
+v_{j+1} =& (1-\lambda \tau+ \frac{h\tau}{2})v_j \\
+         & + h\tau\vec{\mu}^T(A)^{j-1}\vec{w}_1 \\
+	 & - \vec{\mu}^T\left[ \sum_{k=1}^{j-1} b_{k}(A)^{j-1-k} \right]\vec{g}\tau\\
+	 & + \alpha b_j\tau
+\end{align*}
+Let's define 
+\begin{align}
+	\beta_k = \vec{\mu}^T (A)^{j-1-k}\vec{g}
+\end{align}
+Thus,
+\begin{align*}
+v_{j+1} =& (1-\lambda \tau+ \frac{h\tau}{2})v_j \\
+         & + h\tau\vec{\mu}^T(A)^{j-1}\vec{w}_1 \\
+	 & - \tau\sum_{k=1}^{j-1}\beta_kb_k\\
+	 & + \alpha b_j\tau
+\end{align*}
+Let $\gamma=(1-\lambda \tau+ \frac{h\tau}{2})$ 
+Writing the above in a matrix form,
+\begin{align*}
+	\vec{
+\end{align*}
 
 For any $v_{j+1}$ expansion the sum of subscripts of all possible terms should sum to $j$ except the leading term which sums to $j+1$ (trivial) .
 
