@@ -1,4 +1,5 @@
 ## Constants
+include("quadrature.jl")
 m = 21          # The number of 'space' nodes
 n = 401         # The number of 'time' nodes
 tau = 10/(n-1)  # Time step size
@@ -9,9 +10,6 @@ taubyh = tau/h
 x = linrange(0,1,m)
 t = linrange(0,10,n)
 
-function mu(y)
-    return 1/(1-y)^2
-end
 
 function muTau(y)
     return tau*mu(y)
@@ -28,4 +26,4 @@ end
 
 A = calculateA()
 println(A)
-println(eig(A)[1])
+#println(eig(A)[1])
