@@ -68,6 +68,7 @@ Carefully provide a mathematical description of the problem discussed in this re
 
 \begin{eqnarray}
 p_1(1,t) &=& 0\\
+p_1(x,0) &=& 0\\
 p_0(0) &=& 1
 \end{eqnarray}
 
@@ -99,8 +100,10 @@ So
 p_0(t_j) &= v_j \nonumber \\
 p_1(x_i,t_j) &= w_j^i \\
 \mu_1(x_i) &= \mu^i \\
-\lambda &= \lambda_0
-\end{align} 
+\lambda &= \lambda_0 \\ 
+ 0 \leq i \leq 19 \\
+ 0 \leq j \leq 399
+ \end{align} 
 
 
 Using the new notations boundary conditions and initial values:
@@ -109,6 +112,7 @@ Using the new notations boundary conditions and initial values:
 Initial conditions:
 \begin{eqnarray}
 w_j^{20} &=& 0\\
+w_0^{i} &=& 0 \\
 v_0 &=& 1
 \end{eqnarray}
 
@@ -123,7 +127,7 @@ Also condensing,
 
 \begin{eqnarray}
 	I_j^{*}=u^{*}(x_i,t_j) &=& g^ib_j \\
-\int_0^1 u^{*}(x,t_j)dx = Gb_j\\
+\int_0^1 u^{*}(x,t_j)dx = \alpha b_j\\
 where\ g^i = (0.3+0.1sin(x_i)) \nonumber
 \end{eqnarray}
 
@@ -154,7 +158,12 @@ w_{j+1}^i=w_{j}^i-\frac{\tau}{2h}(w_j^{i+1}-w_j^{i-1})-\tau\mu^i w_j^i - \tau g^
 \end{align}
 
 Applying LAX scheme $w_j^i = \frac{w_j^{i-1} + w_j^{i+1}}{2}$ we get,
+
 \begin{align*}
+	w^i_{j+1} =& \left( \frac{w_j^{i+1} + w_j^{i-1}}{2} \right)
+	-\frac{\tau}{2h}(w_j^{i+1}-w_j^{i-1}) \\
+		&-\tau\mu^i\left( \frac{w_j^{i+1} + w_j^{i-1}}{2} \right)  \\
+		&- \tau g^i b_j\\
 	w^i_{j+1} =& \frac{1}{2}\left( 1-\mu^i\tau + \frac{\tau}{h} \right) w^{i-1}_j + \\
 	           & \frac{1}{2}\left( 1-\mu^i\tau - \frac{\tau}{h} \right) w^{i+1}_j - \\
 		   & \tau g^i b_j
@@ -169,6 +178,24 @@ Under an appropriately defined matrix $A$, we can re-write the above equation to
 where $\vec{e_1}$ is an $m\times1$ matrix given by
 \begin{align}
 	\vec{e_1} = \left[ \lambda,0,\dots,0 \right]^T
+\end{align}
+
+%\begin{comment}
+Matrix A has the form:
+
+\begin{align}
+ %\[ 
+ \begin{pmatrix} w^0_{j+1} \\ w^1_{j+1} \\ \cdots \\ w^{n-2}_{j+1} \\ w^{n-1}_{j+1} \\ w^{n}_{j+1}  \end{pmatrix} &= \left( \begin{matrix}
+0 & 0 & 0 & \cdots & 0 & 0 \\
+%1 & 
+a_{1} & 0 & a_{3} & \cdots & 0 & 0\\
+0 & a_{2} & 0 & a_{4} & \cdots & 0\\
+0 & 0 & a_{3} & 0 & a_5 & 0\\
+\vdots \\
+0 & 0 & \cdots &  0 & 0 & 0  \end{matrix} \right) \begin{pmatrix} w^0_j \\ w^1_j \\ \cdots \\ w^{n-2}_j \\ w^{n-1}_j \\ w^{n}_j\end{pmatrix}  \\
+&+ b\tau \begin{pmatrix} g^0 \\ g^1 \\ \vdots \\ g^{n-2} \\ g^{n-1} \\ g^{n} \end{pmatrix} + v_{j+1} \begin{pmatrix}
+\lambda \\ 0  \\ 0  \\ \vdots \\ 0 \\ 0 \\ 0
+\end{pmatrix}
 \end{align}
 
 From \eqref{eq:disceq1}
@@ -188,22 +215,28 @@ v_{j+1} =& (1-\lambda \tau+ \frac{h\tau}{2})v_j \\
 \end{align*}
 Let's define 
 \begin{align}
-	\beta_k  &= \vec{\mu}^T (A)^{j-1-k}\vec{g} \\
+	\beta_{j,k}  &= \vec{\mu}^T (A)^{j-1-k}\vec{g} \\
         \omega_j &=\vec{\mu}^T(A)^{j}\vec{w}_0 \\
         \gamma   &=(1-\lambda \tau+ \frac{h\tau}{2})
 \end{align}
 
+\begin{align}
+\vec{\beta_0} = \begin{pmatrix} \alpha \\ 0 \\ 0 \\ \vdots \\ 0 \end{pmatrix} \\
+\end{align}
+
+
 \begin{align} \label{eq:p0evolution}
-v_{j+1} &= \gamma v_j + h\tau\omega_j - \tau\sum_{k=0}^{j-1}\beta_kb_k
+v_{j+1} &= \gamma v_j + h\tau\omega_j - \tau\sum_{k=0}^{j-1}\beta_{j,k}b_k
 	   + \alpha b_j\tau \\
 	   &= \gamma v_j + h\tau\omega_j - \tau \vec{\beta}_j^T \vec{b}\\
-	   &= \gamma \sum_{k=0}^{j} \gamma^{j-k}v_k 
+	   &= \gamma^{j+1}v_0 
 	   + h\tau\sum_{k=0}^{j} \gamma^{j-k}\omega_k
 	   - \left(\sum_{k=0}^{j} \gamma^{j-k} \vec{\beta}_k\right)^T \vec{b}
 \end{align}
 Under appropriately defined strictly lower triangular matrices $G$ and $B$,
 \begin{align}
-	\vec{v} = \gamma G\vec{v} + h\tau G\vec{\omega} - B\vec{b}
+	\vec{v} = \vec{c} + h\tau G\vec{\omega} - B\vec{b} \\
+	c=\begin{pmatrix} 1 \\ \gamma \\  \gamma^2 \\ \gamma^3 \\ \vdots \\ \gamma^{n} \end{pmatrix}v_0
 \end{align}
 where row $j+1$ of matrix $B$ is given by
 \[
