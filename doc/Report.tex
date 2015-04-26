@@ -131,8 +131,8 @@ And,
 
 \begin{eqnarray}
 b(t)+\int_0^1\mu_1(x)f(x,t)dx -0.3p_0^{*}(t) = c(t) \nonumber \\
-b_j = c_j - F_j \\
-where\ F_j = \int_0^1\mu_1(x)f(x,t_j)dx -0.3p_0^{*}(t_j)\\
+b_j = c_j - f_j \\
+where\ f_j = \int_0^1\mu_1(x)f(x,t_j)dx -0.3p_0^{*}(t_j)\\
 \end{eqnarray}
 
 
@@ -143,7 +143,7 @@ Discretizing \eqref{eq1}
 \frac{v_{j+1}-v_j}{\tau} &= -\lambda v_j + I_j + I_j^{*} \\
 I_j &= h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k + \frac{\mu^{20} w_j^{20}}{2} ] \\
     &=  h[\frac{\mu^0 w_j^0}{2} + \sum_{k=1}^{19} \mu^k w_j^k ] \nonumber \\
-I_j^{*} &= Gb_j
+I_j^{*} &= \alpha b_j
 \end{align}
 
 
