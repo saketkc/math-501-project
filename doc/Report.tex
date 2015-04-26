@@ -209,6 +209,17 @@ where row $j+1$ of matrix $B$ is given by
 \[
 \left(\sum_{k=0}^{j} \gamma^{j-k} \vec{\beta}_k\right)^T
 \]
+Consequently, we have,
+\begin{align}
+	(\gamma G - I)\vec{v} &= B\vec{b} - h\tau G\vec{\omega} \\
+	\vec{v} &= (\gamma G - I)^{-1}B\vec{b} - h\tau(\gamma G - I)^{-1}G\vec{\omega}\\
+		&= B'\vec{b} - \vec{c}
+\end{align}
+for appropriate matrix $B'$ and vector $\vec{c}$. Note that $\vec{c}$ is a known quantity.
+Hence our optimization problem reduces to finding $\vec{b}$ that best fits the equation
+\begin{align}
+	B'\vec{b} = \vec{v}^* + \vec{c}
+\end{align}
 
 \section{Results}
 Illustrate the results using the methodology proposed in Section. \ref{sec:method}
