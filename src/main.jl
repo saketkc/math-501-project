@@ -6,8 +6,8 @@ h = 1/(m-1)     # Space step size
 
 lamb = 0.3
 taubyh = tau/h
-x = linrange(0,1,m-1)
-t = linrange(0,10,n-1)
+x = linrange(0,1,m)
+t = linrange(0,10,n)
 
 function mu(y)
     return 1/(1-y)^2
