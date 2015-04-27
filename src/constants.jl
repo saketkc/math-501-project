@@ -49,4 +49,16 @@ for j=2:n
         B[j,:] += γ^(j-k)*β[k,:]
     end
 end
+B = τ*B
+c = zeros(n,1)
+for i=1:n
+  c[i] = γ^(i-1)
+end
 
+estb = (inv(B'B)*B')*vec(c-optv)
+estv = -B*estb + c
+errv = norm(estv-optv,2);
+
+Pkg.add("Gadfly")
+using Gadfly
+plot(estv)
