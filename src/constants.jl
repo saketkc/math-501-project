@@ -6,6 +6,5 @@ h = 1/(m-1)     # Space step size
 λ = 0.3
 τbyh = τ/h
 α = 0.3+0.1*(1-cos(1))         # Integral of g(x) = 0.3 +0.1sin(x) = 0.3+0.1(1-cos1)
-
 x = linrange(0,1,m)
 t = linrange(0,10,n)
