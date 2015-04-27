@@ -61,4 +61,5 @@ errv = norm(estv-optv,2);
 
 Pkg.add("Gadfly")
 using Gadfly
-plot(estv)
+draw(SVG("estv.svg",6inch, 3inch), plot(x=t, y=estv, Guide.XLabel("Time"), Guide.YLabel("Optimal p0")))
+
