@@ -40,6 +40,7 @@ for j=2:n
        a = (A^(j-1-k))'*μ
        β[j,k] = dot(μ,g)[1]
     end
+       β[j,j] = α
 end
 
 B = zeros(n,n)
