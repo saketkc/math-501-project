@@ -8,5 +8,7 @@ h = 1/(m-1)     # Space step size
 x = linrange(0,1,m)'
 t = linrange(0,10,n)'
 u = μ(x); u[1] = 0; u = u';
-β = #TODO
+β = zeros(m,m)
+
+
 γ = (1-λ*τ+h*τ/2)
