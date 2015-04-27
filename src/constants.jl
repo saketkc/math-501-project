@@ -30,9 +30,9 @@ g = (0.3+0.1*sin(x))
 
 
 ## Calculate B
-β = zeros(m,m)
+β = zeros(n,n)
 
-for j=1:m
+for j=1:n
     for k = 0:j-1
        β[j,k+1] = u'*A^(j-1-k)*g
     end
