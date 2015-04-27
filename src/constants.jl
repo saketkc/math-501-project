@@ -37,6 +37,6 @@ g = (0.3+0.1*sin(x))
 for j=1:n
     for k = 0:j-1
        a = μ'*A^(j-1-k)
-       β[j,k+1] = vec(a)*vec(g)
+       β[j,k+1] = vec(a)'*vec(g)
     end
 end
