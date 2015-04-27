@@ -4,7 +4,6 @@ n = 401         # The number of 'time' nodes
 h = 1/(m-1)     # Space step size
 
 λ = 0.3
-π = 3.14159265359
 α = 0.3+0.1*(1-cos(1))         # Integral of g(x) = 0.3 +0.1sin(x) = 0.3+0.1(1-cos1)
 x = linrange(0,1,m)'
 t = linrange(0,10,n)'
