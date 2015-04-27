@@ -5,8 +5,8 @@ h = 1/(m-1)     # Space step size
 
 λ = 0.3
 α = 0.3+0.1*(1-cos(1))         # Integral of g(x) = 0.3 +0.1sin(x) = 0.3+0.1(1-cos1)
-x = linrange(0,1,m)'
-t = linrange(0,10,n)'
+x = [linrange(0,1,m)]''
+t = [linrange(0,10,n)]
 
 α = 0.3+0.1*(1-cos(1))         # Integral of g(x) = 0.3 +0.1sin(x) = 0.3+0.1(1-cos1)
 μ = 1./(1-x).^2; μ[1] = 0; μ[m] = 0;
