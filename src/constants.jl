@@ -42,3 +42,10 @@ for j=2:n
     end
 end
 
+B = zeros(n,n)
+for j=2:n
+    for k=1:j
+        B[j,:] += γ^(j-k)*β[k,:]
+    end
+end
+
