@@ -15,7 +15,7 @@ function calculateA()
    return A
 end
 
-function calculateg(x)
+function g(x)
     return (0.3+0.1*sin(x))
 end
 
