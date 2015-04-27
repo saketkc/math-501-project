@@ -9,7 +9,7 @@ x = linrange(0,1,m)'
 t = linrange(0,10,n)'
 
 α = 0.3+0.1*(1-cos(1))         # Integral of g(x) = 0.3 +0.1sin(x) = 0.3+0.1(1-cos1)
-u = μ(x); u[1] = 0; u = u';    # Vector form of mu
+μ = 1./(1-x).^2; μ[1] = 0; μ[m] = 0;
 β = zeros(m,m)
 γ = (1-λ*τ+h*τ/2)
 
