@@ -34,10 +34,11 @@ g = (0.3+0.1*sin(x))
 
 #println(size(x), " ", size(t), " ", size(g), " ", size(A), " ", size(μ'))
 
-for j=1:n
-    for k = 0:j-1
+β[1,1] = α
+for j=2:n
+    for k = 1:j-1
        a = (A^(j-1-k))'*μ
-       β[j,k+1] = dot(μ,g)[1]
+       β[j,k] = dot(μ,g)[1]
     end
 end
 
