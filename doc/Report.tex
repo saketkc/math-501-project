@@ -235,23 +235,22 @@ v_{j+1} &= \gamma v_j + h\tau\omega_j - \tau\sum_{k=0}^{j-1}\beta_{j,k}b_k
 \end{align}
 Under appropriately defined strictly lower triangular matrices $G$ and $B$,
 \begin{align}
-	\vec{v} = \vec{c} + h\tau G\vec{\omega} - B\vec{b} \\
+	\vec{v} = - B\vec{b}+\vec{c} + h\tau G\vec{\omega}  \\
 	c=\begin{pmatrix} 1 \\ \gamma \\  \gamma^2 \\ \gamma^3 \\ \vdots \\ \gamma^{n} \end{pmatrix}v_0
 \end{align}
 where row $j+1$ of matrix $B$ is given by
 \[
 \left(\sum_{k=0}^{j} \gamma^{j-k} \vec{\beta}_k\right)^T
 \]
-Consequently, we have,
+From the initial conditions, we have $\vec{w_0} = \vec{0}$ Thus $\vec{\omega}_0 =
+\vec{0}$. Consequently, we have,
 \begin{align}
-	(\gamma G - I)\vec{v} &= B\vec{b} - h\tau G\vec{\omega} \\
-	\vec{v} &= (\gamma G - I)^{-1}B\vec{b} - h\tau(\gamma G - I)^{-1}G\vec{\omega}\\
-		&= B'\vec{b} - \vec{c}
+	\vec{v} &= -B\vec{b} + \vec{c}
 \end{align}
-for appropriate matrix $B'$ and vector $\vec{c}$. Note that $\vec{c}$ is a known quantity.
+Note that $\vec{c}$ is a known quantity.
 Hence our optimization problem reduces to finding $\vec{b}$ that best fits the equation
 \begin{align}
-	B'\vec{b} = \vec{v}^* + \vec{c}
+	B\vec{b} = \vec{c}-\vec{v}^*
 \end{align}
 
 \section{Results}
