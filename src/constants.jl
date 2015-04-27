@@ -5,8 +5,8 @@ h = 1/(m-1)     # Space step size
 
 λ = 0.3
 α = 0.3+0.1*(1-cos(1))         # Integral of g(x) = 0.3 +0.1sin(x) = 0.3+0.1(1-cos1)
-x = linspace(0,1,m)
-t = linspace(0,10,n)
+x = vec(linspace(0,1,m))
+t = vec(linspace(0,10,n))
 
 α = 0.3+0.1*(1-cos(1))         # Integral of g(x) = 0.3 +0.1sin(x) = 0.3+0.1(1-cos1)
 μ = 1./(1-x).^2; μ[1] = 0; μ[m] = 0;
@@ -36,7 +36,8 @@ g = (0.3+0.1*sin(x))
 
 for j=1:n
     for k = 0:j-1
-       a = μ'*A^(j-1-k)
-       β[j,k+1] = vec(a)'*vec(g)
+       a = (A^(j-1-k))'*μ
+       β[j,k+1] = dot(μ,g)[1]
     end
 end
+
