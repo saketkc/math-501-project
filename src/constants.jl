@@ -3,7 +3,7 @@ n = 401         # The number of 'time' nodes
 tau = 10/(n-1)  # Time step size
 h = 1/(m-1)     # Space step size
 
-lamb = 0.3
+lambda = 0.3
 taubyh = tau/h
 alpha = 0.3+0.1*(1-cos(1))         # Integral of g(x) = 0.3 +0.1sin(x) = 0.3+0.1(1-cos1)
 
