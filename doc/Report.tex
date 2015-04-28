@@ -51,8 +51,6 @@
 \section{Problem description}
 Carefully provide a mathematical description of the problem discussed in this report. 
 
-\section{Methodology}
-\label{sec:method}
 \begin{equation}
 \label{eq1}
 \frac{dp_0}{dt} = -\lambda_0 p_0(t) + \int_0^1 \mu_1(x)p_1(x,t)dx + \int_0^1u^{*}(x,t)dx
@@ -67,7 +65,6 @@ Carefully provide a mathematical description of the problem discussed in this re
 \textbf{Given Initial Conditions:}
 
 \begin{eqnarray}
-p_1(1,t) &=& 0\\
 p_1(x,0) &=& 0\\
 p_0(0) &=& 1
 \end{eqnarray}
@@ -75,44 +72,55 @@ p_0(0) &=& 1
 \textbf{Given Boundary Conditions:}
 
 \begin{eqnarray}
-p_1(0,t) &=& \lambda_0 p_0(t)
+p_1(0,t) &=& \lambda_0 p_0(t)\\
+p_1(1,t) &=& 0
 \end{eqnarray}
 
+The function $u^*$ is given by
 \begin{eqnarray}
 u^{*}(x,t) &=& (0.3+0.1 sin(x))b(t) 
 \end{eqnarray}
 
-And,
+The function $b(t)$ represents the input. It is related to the cost constraint function
+$c(t)$ as given below.
 
 \begin{eqnarray}
 b(t)+\int_0^1\mu_1(x)f(x,t)dx -0.3p_0^{*}(t) = c(t)\\
 f(x,t) = 0.1\cos(\pi t)\sin^2(1-x)\\
-p_0^{*}(t) = 0.85+0.05\cos(2\pi t)
 \end{eqnarray}
 
+Our objective is to find the input $b(t)$ such that the resulting distribution $p_0(t)$ is
+closest (as measured by the 2-norm) to the optimal distribution $p_0^*(t)$ given below.
+\begin{equation}
+p_0^{*}(t) = 0.85+0.05\cos(2\pi t)
+\end{equation}
 
+\section{Methodology}
+\label{sec:method}
 
 We make couple of substitutions, following the notation that
-$z_i^j$ refers to the value of $z$ evaluated at time point $i$ and at position $j$
+$z_i^j$ refers to the value of $z$ evaluated at time point $i$ and at position $j$. The
+repair time is divided into $m$ subintervals, while the system running time is divided
+into $n$ subintervals. For the purposes of numerical implementation, we chose $m$ and $n$
+to be $20$ and $400$ respectively.
 
 So 
 \begin{align}
-p_0(t_j) &= v_j \nonumber \\
-p_1(x_i,t_j) &= w_j^i \\
-\mu_1(x_i) &= \mu^i \\
+p_0(t_j) &= v_j \quad 0 \le j \le n\\
+p_1(x_i,t_j) &= w_j^i \quad 0 \le i \le m, \, 0\le j \le n\\
+\mu_1(x_i) &= \mu^i \quad 0 \le i \le m\\
 \lambda &= \lambda_0 \\ 
- 0 \leq i \leq 19 \\
- 0 \leq j \leq 399
- \end{align} 
+\end{align} 
 
 
-Using the new notations boundary conditions and initial values:
+Using the new notation, the boundary conditions and initial conditions may be written as
+follows.
 
 
 Initial conditions:
 \begin{eqnarray}
-w_j^{20} &=& 0\\
-w_0^{i} &=& 0 \\
+w_j^{20} &=& 0 \quad \forall 0\le j\le n\\
+w_0^{i} &=& 0 \quad \forall 0\le i \le m\\
 v_0 &=& 1
 \end{eqnarray}
 
