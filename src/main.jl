@@ -62,6 +62,7 @@ errv = norm(estv-optv,2);
 Pkg.add("Gadfly")
 Pkg.add("Cairo")
 using Gadfly
+
 using Cairo
 draw(SVG("estv.svg",6inch, 3inch), plot(x=t[2:n-1], y=estv[2:n-1], Guide.XLabel("Time"), Guide.YLabel("Optimal p0")))
 
