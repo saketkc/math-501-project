@@ -119,7 +119,6 @@ follows.
 
 Initial conditions:
 \begin{eqnarray}
-w_j^{20} &=& 0 \quad \forall 0\le j\le n\\
 w_0^{i} &=& 0 \quad \forall 0\le i \le m\\
 v_0 &=& 1
 \end{eqnarray}
@@ -127,6 +126,7 @@ v_0 &=& 1
 Boundary Conditions:
 
 \begin{eqnarray}
+w_j^{20} &=& 0 \quad \forall 0\le j\le n\\
 w_j^0 &=&  \lambda v_j
 \end{eqnarray}
 
@@ -136,7 +136,7 @@ Also condensing,
 \begin{eqnarray}
 	I_j^{*}=u^{*}(x_i,t_j) &=& g^ib_j \\
 \int_0^1 u^{*}(x,t_j)dx = \alpha b_j\\
-where\ g^i = (0.3+0.1sin(x_i)) \nonumber
+where\ g^i = (0.3+0.1sin(x^i)) \nonumber
 \end{eqnarray}
 
 And,
