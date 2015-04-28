@@ -29,6 +29,30 @@ end
 ## Calculate g
 g = (0.3+0.1*sin(x))
 
+## Quadrature
+function mu(x)
+    return 1/(1-x)^2
+end
+
+function f(x)
+    ## Use just the x part
+    ## Remaining cos(πt) should be multiplied later
+    return 0.1*sin(1-x)*sin(1-x)
+end
+
+function fmu(x)
+    return f(x)mu(x)
+end
+
+weights = [(18+√30)/36,(18-√30)/36]
+point1 = √(3-2(√6)/(√5))/√7
+point2 = √(3+2(√6)/(√5))/√7
+
+## Integrate wrt x
+fx = weights[1]*fmu((point1+1)/2)+weights[1]*fmu((-point1+1)/2)+weights[2]*fmu((point2+1)/2)+weights[2]*fmu((-point2+1)/2)
+fx = fx/2
+## Multiply by time vector
+fxt = fx*cos(π*t)
 
 ## Calculate B
 β = zeros(n,n)
@@ -52,19 +76,20 @@ for j=2:n
     end
 end
 B = τ*B
-c = zeros(n,1)
+d = zeros(n,1)
 for i=1:n
-  c[i] = γ^(i-1)*0.9
+  d[i] = γ^(i-1)*0.9
 end
 
-estb = (inv(B'B)*B')*vec(c-optv)
-estv = -B*estb + c
+estb = pinv(B)*vec(d-optv)
+estv = -B*estb + d
 errv = norm(estv-optv,2);
-
+c = estb + fxt - 0.3optv
 Pkg.add("Gadfly")
 Pkg.add("Cairo")
 using Gadfly
 
 using Cairo
 draw(SVG("estv.svg",6inch, 3inch), plot(x=t[2:n-1], y=estv[2:n-1], Guide.XLabel("Time"), Guide.YLabel("Optimal p0")))
-
+draw(SVG("estb.svg",6inch, 3inch), plot(x=t,y=estb, Guide.XLabel("Time"), Guide.YLabel("b(t)")))
+draw(SVG("p1hat.svg",6inch, 3inch), plot(x=t,y=1-estv, Guide.XLabel("Time"), Guide.YLabel("p0(t)")))
