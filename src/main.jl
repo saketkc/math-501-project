@@ -25,6 +25,7 @@ for i=2:m-1
 end
 
 
+
 ## Calculate g
 g = (0.3+0.1*sin(x))
 
@@ -44,6 +45,7 @@ for j=2:n
 end
 
 B = zeros(n,n)
+B[1,1] = α
 for j=2:n
     for k=1:j
         B[j,:] += γ^(j-k)*β[k,:]
@@ -52,7 +54,7 @@ end
 B = τ*B
 c = zeros(n,1)
 for i=1:n
-  c[i] = γ^(i-1)
+  c[i] = γ^(i-1)*0.9
 end
 
 estb = (inv(B'B)*B')*vec(c-optv)
