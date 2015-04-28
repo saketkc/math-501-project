@@ -266,6 +266,21 @@ The matrix $B$ is invertible in this case and hence our estimate of $\vec{v}$ is
 	\vec{v} &= -B\hat{\vec{b}} + \vec{d} \\
 	        &= \vec{v}^*
 \end{align}
+
+\subsection{Computing the cost constraint function}
+We approximate the integral using:
+\begin{equation}
+\int_{-1}^{1}f(x)dx = \sum_{i=1}^{n} w_if(x_i)
+\end{equation}
+We used Gauss-Legendre quadrature with $n=4$.
+Thus,
+\begin{equation}
+	\int_{0}^{1}f(x)dx = \frac{1}{2}\sum_{i=1}^{n} w_if\left(\frac{x_i}{2} +
+	\frac{1}{2}\right)
+\end{equation}
+
+
+
 \section{Results}
 Illustrate the results using the methodology proposed in Section. \ref{sec:method}
 
@@ -274,13 +289,6 @@ Illustrate the results using the methodology proposed in Section. \ref{sec:metho
 	\includegraphics[width=\linewidth]{estv.pdf}
 	\caption{$v(t)$ v/s $t$}
 \end{figure*}
-
-\subsection{Gaussian Qudrature}
-We approximate the integral using:
-\begin{equation}
-\int_{-1}^{1}f(x)dx = \sum{i=1}^{n} w(x_i)f(x_i)
-\end{equation}
-For the Gaussian-Legendre form $w(x_i)=1$
 
 
 
