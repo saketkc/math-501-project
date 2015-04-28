@@ -293,7 +293,22 @@ Illustrate the results using the methodology proposed in Section. \ref{sec:metho
 
 
 \section{Observation and Conclusions}
-State your observation from the results and make conclusions. 
+The inversion of matrix $B$ does present some difficulties. It is easily seen from the
+definition of $B$ that it is lower triangular. In addition,
+\[
+	(B)_{ii} = \alpha\tau \quad \forall 0\le i \le n
+\]
+As $B$ is lower triangular, its determinant is the product of the main diagonal terms.
+\[
+	|B| = (\alpha\tau)^{n+1}
+\]
+We have $\alpha \approx 0.354$, $\tau = 0.025$ and $n=401$. Thus,
+\[
+	|B| \approx 10^{-802}
+\]
+which makes $B$ almost singular. In fact, taking a direct inverse in Julia results in
+multiple entries going to \texttt{NaN}. We resolve this issue by computing the
+Moore-Penrose pseudoinverse $B^+$ of $B$.
 
 \section*{Reference}
 All materials (books, papers, and websites) mentioned in your reports.   
