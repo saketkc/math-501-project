@@ -86,6 +86,7 @@ c = estb + fxt - 0.3optv
 
 w = zeros(m,n)
 w[1,:] = λ*estv
+w[1,1] = 0
 for i=2:n
     w[:,i] = A*w[:,i]-τ*estb[i]*g
 end
@@ -97,6 +98,7 @@ p1hat = M'*w*h
 #Pkg.add("Cairo")
 using Gadfly
 #using Cairo
-#draw(SVG("estv.svg",6inch, 3inch), plot(x=t[2:n-1], y=estv[2:n-1], Guide.XLabel("Time"), Guide.YLabel("Optimal p0")))
-#draw(SVG("estb.svg",6inch, 3inch), plot(x=t,y=estb, Guide.XLabel("Time"), Guide.YLabel("b(t)")))
-draw(SVG("p1hat.svg",6inch, 3inch), plot(x=t,y=p1hat, Guide.XLabel("Time"), Guide.YLabel("p1hat(t)")))
+draw(SVG("estv.svg",6inch, 3inch), plot(x=t, y=estv, Guide.XLabel("Time"), Guide.YLabel("Estimated p0"),Guide.XTicks(ticks=[0:1:10])))
+draw(SVG("error.svg",6inch, 3inch), plot(x=t, y=abs(estv-optv), Guide.XLabel("Time"), Guide.YLabel("Absolute Error"),Guide.XTicks(ticks=[0:1:10])))
+draw(SVG("estb.svg",6inch, 3inch), plot(x=t,y=estb, Guide.XLabel("Time"), Guide.YLabel("b(t)"),Guide.XTicks(ticks=[0:1:10])))
+draw(SVG("p1hat.svg",6inch, 3inch), plot(x=t,y=p1hat, Guide.XLabel("Time"), Guide.YLabel("p1hat(t)"), Guide.YTicks(ticks=[0:0.0025:0.0225]), Guide.XTicks(ticks=[0:1:10])))
