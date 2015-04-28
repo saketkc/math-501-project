@@ -243,24 +243,29 @@ v_{j+1} &= \gamma v_j + h\tau\omega_j - \tau\sum_{k=0}^{j-1}\beta_{j,k}b_k
 \end{align}
 Under appropriately defined strictly lower triangular matrices $G$ and $B$,
 \begin{align}
-	\vec{v} = - B\vec{b}+\vec{c} + h\tau G\vec{\omega}  \\
-	c=\begin{pmatrix} 1 \\ \gamma \\  \gamma^2 \\ \gamma^3 \\ \vdots \\ \gamma^{n} \end{pmatrix}v_0
+	\vec{v} = - B\vec{b}+\vec{d} + h\tau G\vec{\omega}  \\
+	\vec{d}=\begin{pmatrix} 1 \\ \gamma \\  \gamma^2 \\ \gamma^3 \\ \vdots \\ \gamma^{n} \end{pmatrix}v_0
 \end{align}
 where row $j+1$ of matrix $B$ is given by
 \[
 \left(\sum_{k=0}^{j} \gamma^{j-k} \vec{\beta}_k\right)^T
 \]
-From the initial conditions, we have $\vec{w_0} = \vec{0}$ Thus $\vec{\omega}_0 =
+From the initial conditions, we have $\vec{w_0} = \vec{0}$ Thus $\vec{\omega} =
 \vec{0}$. Consequently, we have,
 \begin{align}
-	\vec{v} &= -B\vec{b} + \vec{c}
+	\vec{v} &= -B\vec{b} + \vec{d}
 \end{align}
-Note that $\vec{c}$ is a known quantity.
+Note that $\vec{d}$ is a known quantity.
 Hence our optimization problem reduces to finding $\vec{b}$ that best fits the equation
 \begin{align}
-	B\vec{b} = \vec{c}-\vec{v}^*
+	B\vec{b} = \vec{d}-\vec{v}^*
 \end{align}
-
+The matrix $B$ is invertible in this case and hence our estimate of $\vec{v}$ is given by 
+\begin{align}
+	\hat{\vec{b}} &= B^{-1} \left( \vec{d} - \vec{v}^* \right)\\
+	\vec{v} &= -B\hat{\vec{b}} + \vec{d} \\
+	        &= \vec{v}^*
+\end{align}
 \section{Results}
 Illustrate the results using the methodology proposed in Section. \ref{sec:method}
 
