@@ -54,11 +54,8 @@ fx = fx/2
 ## Multiply by time vector
 fxt = fx*cos(π*t)
 
-## Calculate B
+## Calculate β
 β = zeros(n,n)
-
-#println(size(x), " ", size(t), " ", size(g), " ", size(A), " ", size(μ'))
-
 β[1,1] = α
 for j=2:n
     for k = 1:j-1
@@ -85,11 +82,21 @@ estb = pinv(B)*vec(d-optv)
 estv = -B*estb + d
 errv = norm(estv-optv,2);
 c = estb + fxt - 0.3optv
-Pkg.add("Gadfly")
-Pkg.add("Cairo")
-using Gadfly
 
-using Cairo
-draw(SVG("estv.svg",6inch, 3inch), plot(x=t[2:n-1], y=estv[2:n-1], Guide.XLabel("Time"), Guide.YLabel("Optimal p0")))
-draw(SVG("estb.svg",6inch, 3inch), plot(x=t,y=estb, Guide.XLabel("Time"), Guide.YLabel("b(t)")))
-draw(SVG("p1hat.svg",6inch, 3inch), plot(x=t,y=1-estv, Guide.XLabel("Time"), Guide.YLabel("p0(t)")))
+
+w = zeros(m,n)
+w[1,:] = λ*estv
+for i=2:n
+    w[:,i] = A*w[:,i]-τ*estb[i]*g
+end
+M = ones(m)
+p1hat = M'*w*h
+
+
+#Pkg.add("Gadfly")
+#Pkg.add("Cairo")
+using Gadfly
+#using Cairo
+#draw(SVG("estv.svg",6inch, 3inch), plot(x=t[2:n-1], y=estv[2:n-1], Guide.XLabel("Time"), Guide.YLabel("Optimal p0")))
+#draw(SVG("estb.svg",6inch, 3inch), plot(x=t,y=estb, Guide.XLabel("Time"), Guide.YLabel("b(t)")))
+draw(SVG("p1hat.svg",6inch, 3inch), plot(x=t,y=p1hat, Guide.XLabel("Time"), Guide.YLabel("p1hat(t)")))
