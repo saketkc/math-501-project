@@ -86,7 +86,7 @@ $c(t)$ as given below.
 
 \begin{eqnarray}
 b(t)+\int_0^1\mu_1(x)f(x,t)dx -0.3p_0^{*}(t) = c(t)\\
-f(x,t) = 0.1\cos(\pi t)\sin^2(1-x)\\
+f(x,t) = 0.1\cos(\pi t)\sin^2(1-x)
 \end{eqnarray}
 
 Our objective is to find the input $b(t)$ such that the resulting distribution $p_0(t)$ is
@@ -144,7 +144,7 @@ And,
 \begin{eqnarray}
 b(t)+\int_0^1\mu_1(x)f(x,t)dx -0.3p_0^{*}(t) = c(t) \nonumber \\
 b_j = c_j - f_j \\
-where\ f_j = \int_0^1\mu_1(x)f(x,t_j)dx -0.3p_0^{*}(t_j)\\
+where\ f_j = \int_0^1\mu_1(x)f(x,t_j)dx -0.3p_0^{*}(t_j)
 \end{eqnarray}
 
 
@@ -270,14 +270,15 @@ The matrix $B$ is invertible in this case and hence our estimate of $\vec{v}$ is
 \subsection{Computing the cost constraint function}
 We approximate the integral using:
 \begin{equation}
-\int_{-1}^{1}f(x)dx = \sum_{i=1}^{n} w_if(x_i)
+\int_{-1}^{1}f(x,t)dx = \sum_{i=1}^{n} \rho_if(x_i,t)
 \end{equation}
 We used Gauss-Legendre quadrature with $n=4$.
 Thus,
-\begin{equation}
-	\int_{0}^{1}f(x)dx = \frac{1}{2}\sum_{i=1}^{n} w_if\left(\frac{x_i}{2} +
-	\frac{1}{2}\right)
-\end{equation}
+\begin{align}
+	\int_{0}^{1}f(x,t)dx &= \frac{1}{2}\sum_{i=1}^{n} \rho_if\left(\frac{x_i}{2} +
+	\frac{1}{2},t\right)\\
+	\therefore c_j &= b_j + f_j
+\end{align}
 
 
 
