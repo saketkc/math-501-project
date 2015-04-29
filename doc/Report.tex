@@ -17,6 +17,7 @@
 \usepackage{float}
 \usepackage{multirow}
 \usepackage{mathrsfs}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 %===============================================================================
 
 \begin{document}
@@ -102,6 +103,11 @@ Our objective is to find the input $b(t)$ such that the resulting distribution $
 closest (as measured by the 2-norm) to the optimal distribution $p_0^*(t)$ given below.
 \begin{equation}
 p_0^{*}(t) = 0.85+0.05\cos(2\pi t)
+\end{equation}
+
+Optimize:
+\begin{equation}
+J(b) = \norm{p_0(t;b)- p_0^{*}(t)}_2
 \end{equation}
 
 \section{Methodology}
