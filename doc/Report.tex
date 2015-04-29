@@ -281,14 +281,6 @@ Thus,
 \end{align}
 
 
-\section{Results}
-Illustrate the results using the methodology proposed in Section. \ref{sec:method}
-
-\begin{figure*}
-	\label{fig:estv}
-	\includegraphics[width=\linewidth]{estv.pdf}
-	\caption{$v(t)$ v/s $t$}
-\end{figure*}
 
 
 
@@ -306,13 +298,37 @@ We have $\alpha \approx 0.354$, $\tau = 0.025$ and $n=401$. Thus,
 \[
 	|B| \approx 10^{-802}
 \]
-which makes $B$ almost singular. In fact, taking a direct inverse in Julia results in
+which makes $B$ dangerously close to being singular. In fact, taking a direct inverse in Julia results in
 multiple entries going to \texttt{NaN}. We resolve this issue by computing the
-Moore-Penrose pseudoinverse $B^+$ of $B$.
+Moore-Penrose pseudoinverse $B^+$ of $B$. For an invertible matrix $B$, $B^- = B^+$
+\clearpage
 
-\section*{Reference}
-All materials (books, papers, and websites) mentioned in your reports.   
-\section*{Appendix}
-Attach the Matlab code here.
+\section{Results}
+\begin{figure}[h]
+	\label{fig:estv}
+	\includegraphics[scale=0.9]{estv.pdf}
+	%\caption{$v(t)$ v/s $t$}
+\end{figure}
+
+\begin{figure}[h]
+	\label{fig:estb}
+	\includegraphics[scale=0.9]{estb.pdf}
+	%\caption{$v(t)$ v/s $t$}
+\end{figure}
+
+\clearpage
+\begin{figure}[h]
+	\label{fig:p1hat}
+	\includegraphics[scale=0.9]{p1hat.pdf}
+	%\caption{$v(t)$ v/s $t$}
+\end{figure}
+
+\begin{figure}[h]
+	\label{fig:error}
+	\includegraphics[scale=0.9]{error.pdf}
+	%\caption{$v(t)$ v/s $t$}
+\end{figure}
+
+
 
 \end{document}
