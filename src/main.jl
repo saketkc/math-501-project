@@ -98,7 +98,7 @@ p1hat = M'*w*h
 #Pkg.add("Cairo")
 using Gadfly
 using Cairo
-draw(PDF("estv.svg",6inch, 3inch), plot(x=t, y=estv, Guide.XLabel("Time"), Guide.YLabel("Estimated p0"),Guide.XTicks(ticks=[0:1:10])))
-draw(PDF("error.svg",6inch, 3inch), plot(x=t, y=abs(estv-optv), Guide.XLabel("Time"), Guide.YLabel("Absolute Error"),Guide.XTicks(ticks=[0:1:10])))
-draw(PDF("estb.svg",6inch, 3inch), plot(x=t,y=estb, Guide.XLabel("Time"), Guide.YLabel("b(t)"),Guide.XTicks(ticks=[0:1:10])))
-draw(PDF("p1hat.svg",6inch, 3inch), plot(x=t,y=p1hat, Guide.XLabel("Time"), Guide.YLabel("p1hat(t)"), Guide.YTicks(ticks=[0:0.0025:0.0225]), Guide.XTicks(ticks=[0:1:10])))
+draw(PDF("estv.pdf",6inch, 3inch), plot(x=t, y=estv, Guide.XLabel("Time"), Guide.YLabel("Estimated p0"),Guide.XTicks(ticks=[0:1:10])))
+draw(PDF("error.pdf",6inch, 3inch), plot(x=t, y=abs(estv-optv), Guide.XLabel("Time"), Guide.YLabel("Absolute Error"),Guide.XTicks(ticks=[0:1:10])))
+draw(PDF("estb.pdf",6inch, 3inch), plot(x=t,y=estb, Guide.XLabel("Time"), Guide.YLabel("b(t)"),Guide.XTicks(ticks=[0:1:10])))
+draw(PDF("p1hat.pdf",6inch, 3inch), plot(x=t,y=p1hat, Guide.XLabel("Time"), Guide.YLabel("p1hat(t)"), Guide.YTicks(ticks=[0:0.0025:0.0225]), Guide.XTicks(ticks=[0:1:10])))
