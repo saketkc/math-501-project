@@ -49,8 +49,7 @@
 \end{frontmatter}
 
 \section{Problem description}
-Carefully provide a mathematical description of the problem discussed in this report. 
-
+Model of a two state reparable system:
 \begin{equation}
 \label{eq1}
 \frac{dp_0}{dt} = -\lambda_0 p_0(t) + \int_0^1 \mu_1(x)p_1(x,t)dx + \int_0^1u^{*}(x,t)dx
@@ -60,6 +59,16 @@ Carefully provide a mathematical description of the problem discussed in this re
 \label{eq2}
 \frac{\partial p_1(x,t)}{\partial t} + \frac{\partial p_1(x,t)}{\partial x} = -\mu_1(x)p_1(x,t) - u^{*}(x,t)
 \end{equation}
+
+where:
+
+$p_0(t)$: Probability that the device is in good mode 0 at time $t$.\\
+
+$p_1(x,t)$: Probability density (with respect to repair time $x$) that the failed device is in failure mode 1 at time $t$ and has an elapsed repair time of $x$\\
+
+$\mu_1(x)$: Time-dependent nonnegative repair rate when the device is in failure state and has an elapsed repair time of $x$.
+
+
 
 
 \textbf{Given Initial Conditions:}
